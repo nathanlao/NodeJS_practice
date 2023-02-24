@@ -103,5 +103,36 @@ Allows us to work with information about the `current process instance`
 - **Examples**:
     - `process.argv`: start a process with PORT specified, when starts up a server, can specify node listen on PORT (How this file got executed?)
     - `process.stdout.write`: the function that called by `console.log`
-    - `process.stdin.on`: creates a `listener` for a given event, (`data` stream comes in) push data in the event loop if data comes in
+    - `process.stdin.on`: creates a `listener` for a given event, (`data stream` comes in) push 'data' in the event loop if data comes in
     - ` process.exit`: exit the process
+
+### Require Object
+Allows us to `import` other `Node.js modules`
+- Format (node syntax for importing modules): 
+
+        global.require(module) 
+        require(module)
+
+## NodeJS Modules
+`Node Modules` are `libraries` that provide `extra functionality`
+
+- `core modules`: modules that are included in the installation of Node.js and can simply be `require`
+
+- `non-core modules`: can be included by installing it `locally` through
+the `NPM` registry
+
+### Path module
+- Provides methods for working with files and directories on the file system
+
+        var path = require('path')
+
+- Some methods
+
+        path.basename()
+        path.dirname()
+        path.extname()
+        path.format()
+        path.isAbsolute()
+        path.join()
+        path.normalize()
+        path.parse() -> return path obj
