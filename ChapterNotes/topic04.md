@@ -136,3 +136,14 @@ the `NPM` registry
         path.join()
         path.normalize()
         path.parse() -> return path obj
+
+### Create / export Modules
+Creating `custom modules` allows for `modularity` in programming
+- `module` is a global object
+- export a module:
+
+        global.module.exports
+
+- example:
+    1. export an object that is a class
+    2. then bring in functionality for public by `require()`
