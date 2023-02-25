@@ -240,6 +240,10 @@ The `Node Package Manager` is a set of `command line tools`, or `CLI's`, that ke
             $ npm minor -> increment the minor version number (2nd .)
             $ npm patch -> increment the patch version number (3rd .)
 
+- **nodemon**: to actively listen for changes and restart the server
+
+        npm install -g nodemon
+
 - Goods:
     - Ensure consistency
     - No conflict
