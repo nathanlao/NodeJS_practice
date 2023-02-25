@@ -4,7 +4,8 @@
   "description": "person class",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "run": "node index.js"
   },
   "keywords": [
     "test"
