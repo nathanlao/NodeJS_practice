@@ -1,0 +1,14 @@
+{
+  "name": "@nathan/person",
+  "version": "1.0.0",
+  "description": "person class",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "",
+  "license": "ISC"
+}
