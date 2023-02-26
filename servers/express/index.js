@@ -39,6 +39,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.get('/hello2', (req, res) => {
+    // render the "hello.ejs" template with the "result" variable
     res.render('hello', {result: 'Hello World from EJS Template Engine!'})
 })
 
