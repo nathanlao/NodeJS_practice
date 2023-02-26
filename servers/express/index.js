@@ -12,6 +12,19 @@ var port = process.env.PORT || 8080
 
 var usersArray = []
 
+var testArrayForEJS = [
+    {
+        pid: 1,
+        fname: "nathan",
+        lname: "cool"
+    },
+    {
+        pid: 12,
+        fname: "juno",
+        lname: "kong"
+    },
+]
+
 // Options object to configure the behavior of the "express.static" middleware
 var options = {
     // files and directories that start with a dot are hidden
@@ -42,7 +55,10 @@ app.set('view engine', 'ejs')
 
 app.get('/hello2', (req, res) => {
     // render the "hello.ejs" template with the "result" variable
-    res.render('hello', {result: 'Hello World from EJS Template Engine!'})
+    res.render('hello', {
+            result: 'Hello World from EJS Template Engine!',
+            users: testArrayForEJS
+        })
 })
 
 // 5. Set up two route handlers 
@@ -53,7 +69,7 @@ app.get('/users-api', (req, res) => {
 })
 app.post('/users-api', (req, res) => {
     usersArray.push(req.body)
-    res.json(req.body)
+    res.json(usersArray)
 })
 
 // respond to the GET request
