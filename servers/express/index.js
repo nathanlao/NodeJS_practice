@@ -56,13 +56,13 @@ app.post('/users-api', (req, res) => {
     res.json(req.body)
 })
 
-// Test the GET request
+// respond to the GET request
 app.get('/test', (req, res) => {
     // sends a response to the client and end the request
     res.send("Hello world from express!")
 })
 
-// Test the POST request
+// respond to the POST request
 app.post('/test2', (req,res) => {
     const {name, age} = req.body
     res.send(`Hello ${name}, you are ${age} years old!`)
