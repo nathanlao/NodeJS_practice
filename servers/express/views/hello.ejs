@@ -9,5 +9,11 @@
 <body>
     <!-- EJS: Embedded JS into HTML makrkup -->
     <%= result %>
+    <h2>Databse Results</h2>
+    <ul>
+        <% users.forEach((user) => { %>
+            <li><%= user.pid %>, <%= user.fname %>, <%= user.lname %></li>
+        <% }) %>
+    </ul>
 </body>
 </html>
