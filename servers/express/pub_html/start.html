@@ -4,9 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Document</title>
 </head>
 <body>
     Hello World 1 From Server!
+    <section>
+        <form>
+            <input type="number" id="pid" name="pid" placeholder="id" required>
+            <input type="text" id="fname" name="fname" placeholder="first name" required>
+            <input type="text" id="lname" name="lname" placeholder="last name" required>
+            <button onclick="adduser()">Add User</button>
+        </form>
+    </section>
+    <h2>User list:</h2>
+    <ul>
+        <!-- Users render here -->
+    </ul>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 </html>

@@ -64,11 +64,23 @@ app.get('/hello2', (req, res) => {
 // 5. Set up two route handlers 
 // respond to GET and POST requests to the /users-api endpoint of URL
 app.get('/users-api', (req, res) => {
-    // send back the objects (response) in JSON form and ends the request
+    // When you send a GET request to a server,
+    // need to send back the objects (response) in JSON form and ends the request
     res.json(usersArray)
 })
 app.post('/users-api', (req, res) => {
     usersArray.push(req.body)
+    res.json(usersArray)
+})
+
+// 6. Set up route handler for DELETE request
+app.delete('/users-api/:id', (req, res) => {
+    // delete user:id
+    // get the id of a path by accessing the "req.params" object
+    var pid = req.params.id
+    usersArray = usersArray.filter((user) => {
+        return pid != user.pid
+    })
     res.json(usersArray)
 })
 
