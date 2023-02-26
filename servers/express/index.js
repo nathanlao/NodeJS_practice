@@ -10,6 +10,8 @@ var app = express()
 // specify the port
 var port = process.env.PORT || 8080
 
+var usersArray = []
+
 // Options object to configure the behavior of the "express.static" middleware
 var options = {
     // files and directories that start with a dot are hidden
@@ -17,6 +19,11 @@ var options = {
     // list of file extensions
     extensions: ['htm', 'html', 'json']
 }
+
+// Parse incoming request bodies in JSON and URL-encoded data 
+// into JS object
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
 
 // Register middleware functions:
 // 1. Serves static files from "./pub_html" when incoming requests are made to the root "/"
@@ -29,11 +36,6 @@ app.use('/', function(req, res, next) {
     next() // pass control to the next middleware function
 })
 
-// Parse incoming request bodies in JSON and URL-encoded data 
-// into JS object
-app.use(express.json())
-app.use(express.urlencoded({extended: false}))
-
 // 4. Set up EJS: template engine
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
@@ -41,6 +43,29 @@ app.set('view engine', 'ejs')
 app.get('/hello2', (req, res) => {
     // render the "hello.ejs" template with the "result" variable
     res.render('hello', {result: 'Hello World from EJS Template Engine!'})
+})
+
+// 5. Set up two route handlers 
+// respond to GET and POST requests to the /users-api endpoint of URL
+app.get('/users-api', (req, res) => {
+    // send back the objects (response) in JSON form and ends the request
+    res.json(usersArray)
+})
+app.post('/users-api', (req, res) => {
+    usersArray.push(req.body)
+    res.json(req.body)
+})
+
+// Test the GET request
+app.get('/test', (req, res) => {
+    // sends a response to the client and end the request
+    res.send("Hello world from express!")
+})
+
+// Test the POST request
+app.post('/test2', (req,res) => {
+    const {name, age} = req.body
+    res.send(`Hello ${name}, you are ${age} years old!`)
 })
 
 // Port we are listening on
