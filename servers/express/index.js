@@ -1,6 +1,7 @@
 // packages:
 var path = require('path')
 var serveIndex = require('serve-index')
+const upload = require('express-fileupload')
 
 // Create a new express app
 var express = require('express')
@@ -56,6 +57,9 @@ var options = {
 // into JS object
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
+// Uploading 
+app.use(upload())
 
 // Register middleware functions:
 // 1. Serves static files from "./pub_html" when incoming requests are made to the root "/"
@@ -147,6 +151,20 @@ app.post('/test2', (req,res) => {
 app.post('/process', (req, res) => {
     const {name, gender, hobbies} = req.body
     res.send(`Name: ${name}<br>Gender: ${gender}<br>Hobbies: ${hobbies}`)
+})
+
+// route for POST request of uploading files
+app.post('/upload', (req, res) => {
+    var data = req.files.myImage.data
+    console.log("pic endpoint")
+    var query = `insert into pics (pic) values ($1)`
+    pool.query(query, [data], (err, result) => {
+        if (err) {
+            console.log(err)
+            return
+        }
+        res.send("uploaded!")
+    })
 })
 
 // Port we are listening on
