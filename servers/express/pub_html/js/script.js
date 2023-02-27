@@ -1,3 +1,9 @@
+/**
+ * Responsible for displaying the content received from the server-side 
+ * to the user. It sends requests to the server-side to retrieve data or 
+ * perform some action.
+ */
+
 // When page first loaded up, make a ajax call to perform a HTTP request
 $(document).ready(function() {
     console.log("call GET users-api")
