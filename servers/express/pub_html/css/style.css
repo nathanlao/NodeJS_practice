@@ -27,3 +27,7 @@ section{
 span:hover{
     cursor:pointer;
 }
+
+.upload-file {
+    width: 350px;
+}

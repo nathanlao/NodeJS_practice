@@ -20,7 +20,13 @@
     <h2>User list:</h2>
     <ul>
         <!-- Users render here -->
-    </ul>
+    </ul>  
+
+    <h2>Saving and Displaying Raw Files in the Database</h2>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input class="upload-file" type="file" name="myImage">
+        <input type="submit">
+    </form>
 
     <script src="./js/jquery.min.js"></script>
     <script src="./js/script.js"></script>
