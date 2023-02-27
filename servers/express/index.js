@@ -96,6 +96,12 @@ app.post('/test2', (req,res) => {
     res.send(`Hello ${name}, you are ${age} years old!`)
 })
 
+// route handlers for POST request process-form
+app.post('/process', (req, res) => {
+    const {name, gender, hobbies} = req.body
+    res.send(`Name: ${name}<br>Gender: ${gender}<br>Hobbies: ${hobbies}`)
+})
+
 // Port we are listening on
 app.listen(port, function() {
     console.log(`app is running on port ${port}`)
