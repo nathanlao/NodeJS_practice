@@ -6,6 +6,25 @@ var serveIndex = require('serve-index')
 var express = require('express')
 var app = express()
 
+// connection pool for postgre
+const { Pool } = require('pg')
+
+// Initialize the pool
+var pool;
+pool = new Pool({
+    connectionString: 'postgres://nathan:123@localhost/cmpt372'
+})
+
+// Verify the database connection
+pool.connect((err, client, done) => {
+    if (err) {
+        console.log('Error connecting to the database:', err.stack)
+    } else {
+        console.log('Connected to the database')
+      }
+    
+})
+
 // "process.env" is an object that contains all the Environment variables: 
 // specify the port
 var port = process.env.PORT || 8080
@@ -64,24 +83,52 @@ app.get('/hello2', (req, res) => {
 // 5. Set up two route handlers 
 // respond to GET and POST requests to the /users-api endpoint of URL
 app.get('/users-api', (req, res) => {
-    // When you send a GET request to a server,
-    // need to send back the objects (response) in JSON form and ends the request
-    res.json(usersArray)
+    var getAllUsersQuery = `SELECT * FROM users`
+    // Send in a query to connection pool
+    pool.query(getAllUsersQuery, (err, result) => {
+        // Error handling: err obj comes from DB
+        if (err) {
+            console.log(err)
+            res.end(err) // display the error response
+        }
+
+        usersArray = result.rows
+        // When you send a GET request to a server,
+        // need to send back the objects (response) in JSON form and ends the request
+        res.json(usersArray)
+    })
 })
-app.post('/users-api', (req, res) => {
+app.post('/users-api', async (req, res) => {
     usersArray.push(req.body)
-    res.json(usersArray)
+
+    var fname = req.body.fname
+    var lname = req.body.lname
+    var pid = req.body.pid
+    try {
+        var adduserquery = `insert into users (pid, fname, lname) values ($1, $2, $3)`
+        const result = await pool.query(adduserquery,[pid,fname,lname])
+        res.json(usersArray)
+    } catch(err){
+        res.end(err)
+    }
 })
 
 // 6. Set up route handler for DELETE request
-app.delete('/users-api/:id', (req, res) => {
+app.delete('/users-api/:id', async (req, res) => {
     // delete user:id
     // get the id of a path by accessing the "req.params" object
     var pid = req.params.id
-    usersArray = usersArray.filter((user) => {
-        return pid != user.pid
-    })
-    res.json(usersArray)
+
+    try {
+        var deleteUserQuery = `delete from users where pid=$1`
+        const result = await pool.query(deleteUserQuery, [pid])
+        usersArray = usersArray.filter((user) => {
+            return pid != user.pid
+        })
+        res.json(usersArray)
+    } catch(err) {
+        res.end(err)
+    }
 })
 
 // respond to the GET request
