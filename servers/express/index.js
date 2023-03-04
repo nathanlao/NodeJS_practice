@@ -68,7 +68,7 @@ app.use('/', express.static('./pub_html', options))
 app.use('/static-files', serveIndex('./pub_html/static-files', {'icons': true}))
 // 3.  Logs incoming requests to the console
 app.use('/', function(req, res, next) {
-    console.log(req.method, 'request for:', req.url, JSON.stringify(req.body))
+    console.log(req.method, 'request: ', req.url, JSON.stringify(req.body))
     next() // pass control to the next middleware function
 })
 
@@ -163,7 +163,21 @@ app.post('/upload', (req, res) => {
             console.log(err)
             return
         }
+        console.log("successfully uploaded!")
         res.send("uploaded!")
+    })
+})
+
+// route for GET to display images (Retrieve the pic from db)
+app.get('/img', function(req, res) {
+    var getPicsQuery = `select * from pics`
+    pool.query(getPicsQuery, function(err, result) {
+        if (err) {
+            console.log(err)
+            return
+        }
+        console.log(result.rows[0])
+        res.end(result.rows[0].pic)
     })
 })
 
