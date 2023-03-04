@@ -92,6 +92,72 @@ PostgreSQL: a `relational database` that implements the SQL standard
 
 ## BLOBs
 `binary large object` to store large object, such as storing and retrieving images, audio, and video files in web applications, like a byte array but limit to size of file
-## MongoDB
 
+## MongoDB
+- **unstructured database**
+- **document store database**: store a collection of `JSON objects`
+    - when we retrieve it, its retrieved as JSON form
+- Connect to your cluster with MongoDB shell
+
+        brew install mongosh
+
+        mongosh "mongodb+srv://cluster0.yiq9iie.mongodb.net/myFirstDatabase" --apiVersion 1 --username <name>
+
+1. Switch/connect to your database
+
+        use cmpt372
+
+2. Shows the collections of database
+
+        show collections
+
+- Basic **CREATE** Operations
+    1. Insert new collection / document (users) in `JSON form` into your db
+
+            db.users.insert({fname: "nathan", age: 25})
+            db.people.insertOne({fname:"juno", age: 26})
+            db.people.insertOne({title:"mongodb doc", pages: 26}) -> be able to insert some other objects
+
+- Basic **READ** Operations
+    1. Count the number of objects
+
+            db.people.count()
+
+    2. Display the full array in JSON form
+
+            db.people.find()
+
+    3. Display the specific object (like the `where` clause)
+
+            db.people.find({fname: "nathan"})
+
+    4. Display the referred object (array)
+
+            db.people.find({"names.name": "nathan"})
+
+    5. Display the objects that does not contain the attribute
+
+            db.people.find({title:null})
+
+            db.people.find({title:{$exists:false}})
+
+    6. Invoke the `or` function
+
+            db.people.find({$or:[{fname:"nathan"}, {fname:"juno"}]})
+
+    7. Invoke the `gte` function: greater than / equal to
+
+            db.people.find({age:{$gte:20}})
+
+    8. Projection (Display only the age in that object)
+
+            db.people.find({fname:"nathan"}, {age:1})
+
+    9. Print out in a good format:
+
+            .pretty()
+
+    10. Sort the objects (`1 (asc)` or `-1 (desc)`)
+
+            db.people.find({title:null}).sort({age:-1})
 ## MVC
