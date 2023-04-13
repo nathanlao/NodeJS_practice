@@ -21,6 +21,9 @@ structured data includes: pre-defined `columns (Fields)` and `rows (Records)`, a
 **Data Definition Language**: `CREATE`, `ALTER`, `DROP`
 
 ## NoSQL
+- Key-value store
+- Document store (in JSON obj)
+- Column store (adjcent columns)
 
 ## NodeJS and Database Packages
 PostgreSQL: a `relational database` that implements the SQL standard
@@ -160,4 +163,34 @@ PostgreSQL: a `relational database` that implements the SQL standard
     10. Sort the objects (`1 (asc)` or `-1 (desc)`)
 
             db.people.find({title:null}).sort({age:-1})
-## MVC
+
+## Mongoose
+- an `object-document model` (easy transfer between document and object in programming) module for node.js for MongoDB
+        - wrapper for MongoDB
+        - Expose the models to control the records in a document
+        - Supports mongo operations
+        - extend native queries
+
+1. Connect to db: 
+        
+        mongoose.connect(mongodbPath, options)
+
+2. Define a model:
+
+        mongoose.Schema({
+                id: {
+                        type: String,
+                        required: true
+                },
+        })
+
+## MVC (Model View Controller)
+- Model: maintains all domain knowledge
+- View: Display model to user
+- Controller: manages sequence of interaction with the user
+
+#### Adv
+1. allows the data to the change independently of its representation
+2. supports presentation of the same data in different ways with changes made in one representation shown in all of them
+#### Disadv
+1. Involves code complexity when the data and interactions are simple
